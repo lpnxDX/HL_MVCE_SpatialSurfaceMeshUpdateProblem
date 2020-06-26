@@ -70,13 +70,7 @@ private:
 	winrt::Windows::Perception::Spatial::Surfaces::SpatialSurfaceMeshOptions m_surfaceMeshOptions;
 	winrt::Windows::Perception::Spatial::SpatialBoundingVolume m_bounds = nullptr;
 
-	struct guidCompare
-	{
-		bool operator()(winrt::guid const& left, winrt::guid const& right) const
-		{
-			return memcmp(&left, &right, sizeof(left)) < 0;
-		}
-	};
+
 
 	// A way to lock map access.
 	std::mutex                                      m_meshCollectionLock;
@@ -93,16 +87,20 @@ private:
 	// The duration of time, in seconds, taken for a new surface mesh to fade in on-screen.
 	//const float c_surfaceMeshFadeInTime = 3.0f;
 
-public:
-
+	
+	struct guidCompare
+	{
+		bool operator()(winrt::guid const& left, winrt::guid const& right) const
+		{
+			return memcmp(&left, &right, sizeof(left)) < 0;
+		}
+	};
+	
 	// The set of surfaces in the collection.
 	std::map <winrt::guid,
 		winrt::Windows::Perception::Spatial::Surfaces::SpatialSurfaceMesh, guidCompare>
-															 m_updatedSurfaces;
+													 m_updatedSurfaces;
 
-	std::map <winrt::guid,
-		winrt::Windows::Foundation::DateTime, guidCompare>
-		m_updatedTimes;
-	std::map<winrt::guid, SurfaceMesh, guidCompare>           m_meshBufferCollection;
+	std::map<winrt::guid, SurfaceMesh, guidCompare>         	                                 m_meshBufferCollection;
 };
 
