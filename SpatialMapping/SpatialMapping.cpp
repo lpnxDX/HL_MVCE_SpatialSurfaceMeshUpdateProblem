@@ -117,6 +117,7 @@ void SurfaceMesh::UpdateBuffers(winrt::Windows::Perception::Spatial::Surfaces::S
 		m_active = false;
 	}
 	*/
+	m_active = true;
 }
 /*
 void SurfaceMesh::Submit(bgfx::ProgramHandle& program,
@@ -229,7 +230,7 @@ SpatialMapping::AddOrUpdateSurface(winrt::Windows::Perception::Spatial::SpatialC
 		m_SurfacesChangedEventToken = m_surfaceObserver.ObservedSurfacesChanged(
 			winrt::Windows::Foundation::TypedEventHandler
 			<SpatialSurfaceObserver, winrt::Windows::Foundation::IInspectable>
-			//(std::bind(&SpatialMapping::Observer_ObservedSurfacesChanged, this, _1, _2)) // just testing
+			//(std::bind(&SpatialMapping::Observer_ObservedSurfacesChanged, this, std::placeholders::_1, std::placeholders::_2)); // alternative
 		{ this, & SpatialMapping::Observer_ObservedSurfacesChanged });
 	}
 	else
